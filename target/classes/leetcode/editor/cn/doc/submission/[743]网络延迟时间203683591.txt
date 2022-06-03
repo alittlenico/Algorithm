@@ -1,0 +1,64 @@
+class Solution {
+    int[] dist;//dist[i] 第k个节点到i+1个节点的距离
+    int num;//节点个数
+    final int INF = 0x3f3f3f3f;//表示无穷大
+    public int networkDelayTime(int[][] times, int n, int k) {
+        dist = new int[n];
+        num = n;
+        //k节点到自己的距离为0
+        dist[k-1] = 0;
+        //用邻接矩阵表示图
+        int[][] arcs = new int[n][n];
+        for(int i = 0;i < n;++i){
+            Arrays.fill(arcs[i],INF);
+        }
+        for(int[] a : times){
+            int u = a[0];int v = a[1];int w = a[2];
+            arcs[u-1][v-1] = u == v ? 0 : w;
+        }
+        Dijkstra(arcs,k);
+        int res = 0;
+        for(int i = 0;i < n;++i){
+            if(dist[i] == INF) return -1;
+            res = dist[i] > res ? dist[i] : res;
+        }
+        return res;
+    }
+
+    void Dijkstra(int[][] arcs,int k){
+        //mark[i]为true的节点是s集合中，已经确定了最短距离。为false的是v-s集合中的，没有确定最短距离的。
+        boolean[] mark = new boolean[num];
+        Arrays.fill(mark,false);
+        //初始化 第k个节点归为s.
+        mark[k-1] = true;
+        for(int i = 0;i < num;++i){
+            if(i == k - 1) continue;
+            dist[i] = arcs[k-1][i];
+        }
+        //n-1轮
+        for(int i = 1;i < num;++i){
+            //v-s中找出dist[i]最小的节点，把它归于s.
+            int temp = INF;
+            int curNodeIdx = -1;
+            for(int j = 0;j < num;++j){
+                if(mark[j]) continue;
+                if(dist[j] <= temp){
+                    temp = dist[j];
+                    curNodeIdx = j;
+                }
+            }
+            mark[curNodeIdx] = true;
+            //如果k到当前节点不可达，则k不可能通过当前节点到达其他节点，无需更新
+            if(dist[curNodeIdx] == INF) continue;
+            //更新k到v-s的节点的距离。
+            for(int j = 0;j < num;++j){
+                if(mark[j]) continue;
+                if(arcs[curNodeIdx][j] == INF) continue;
+                int val = dist[curNodeIdx] + arcs[curNodeIdx][j];
+                dist[j] = val < dist[j] ? val : dist[j];
+            }
+        }
+    }
+}
+//runtime:4 ms
+//memory:43 MB

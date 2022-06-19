@@ -7,11 +7,51 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Scanner;
 import java.util.regex.Matcher;
 
 public class Demo1 {
     public static void main(String[] args) {
-        System.out.println("test");
+
+        Scanner scanner = new Scanner(System.in);
+        int[][] arr = new int[3][2];
+        int[] res = new int[3];
+        for(int i = 0;i < 3; ++i) {
+            res[i] = scanner.nextInt();
+        }
+        for(int x : res) {
+            System.out.println(x);
+        }
+    }
+
+    @Test
+    public void test6() {
+        Scanner scanner = new Scanner(System.in);
+        int[][] arr = new int[3][2];
+        for(int i = 0;i < 3; ++i) {
+            int a = scanner.nextInt();
+            int b = scanner.nextInt();
+            arr[i][0] = a;
+            arr[i][1] = b;
+        }
+        for(int i = 0;i < 3;++i){
+            System.out.println("a:"+arr[i][0]+",b:"+arr[i][1]);
+        }
+    }
+
+    @Test
+    public void test5() {
+        String dateStr = "2022-05-24 11:30:56";
+        String substring = dateStr.substring(11, 16);
+        System.out.println(substring);
+    }
+
+    @Test
+    public void test4() {
+        int len = 3;
+        while(--len >= 0) {
+            System.out.println(len);
+        }
     }
 
     @Test

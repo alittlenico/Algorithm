@@ -3,6 +3,17 @@
   <component name="LeetcodeEditor">
     <option name="projectConfig">
       <map>
+        <entry key="$USER_HOME$/AppData/Local/Temp/leetcode/editor/cn/[310]最小高度树.java">
+          <value>
+            <LeetcodeEditor>
+              <option name="contentPath" value="$PROJECT_DIR$/src/leetcode/editor/cn/doc/content/[310]最小高度树.md" />
+              <option name="frontendQuestionId" value="leetcode.cn310" />
+              <option name="host" value="leetcode.cn" />
+              <option name="path" value="$PROJECT_DIR$/src/leetcode/editor/cn/[310]最小高度树.java" />
+              <option name="titleSlug" value="minimum-height-trees" />
+            </LeetcodeEditor>
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/src/leetcode/editor/cn/[102]二叉树的层序遍历.java">
           <value>
             <LeetcodeEditor>
@@ -44,6 +55,17 @@
               <option name="host" value="leetcode.cn" />
               <option name="path" value="$PROJECT_DIR$/src/leetcode/editor/cn/[114]二叉树展开为链表.java" />
               <option name="titleSlug" value="flatten-binary-tree-to-linked-list" />
+            </LeetcodeEditor>
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/leetcode/editor/cn/[124]二叉树中的最大路径和.java">
+          <value>
+            <LeetcodeEditor>
+              <option name="contentPath" value="$PROJECT_DIR$/src/leetcode/editor/cn/doc/content/[124]二叉树中的最大路径和.md" />
+              <option name="frontendQuestionId" value="leetcode.cn124" />
+              <option name="host" value="leetcode.cn" />
+              <option name="path" value="$PROJECT_DIR$/src/leetcode/editor/cn/[124]二叉树中的最大路径和.java" />
+              <option name="titleSlug" value="binary-tree-maximum-path-sum" />
             </LeetcodeEditor>
           </value>
         </entry>

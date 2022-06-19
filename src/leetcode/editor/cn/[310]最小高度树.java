@@ -43,13 +43,53 @@ package leetcode.editor.cn;//树是一个无向图，其中任何两个顶点只
 // Related Topics 深度优先搜索 广度优先搜索 图 拓扑排序 👍 650 👎 0
 
 
+import java.util.ArrayList;
+import java.util.Deque;
+import java.util.LinkedList;
 import java.util.List;
 
 //leetcode submit region begin(Prohibit modification and deletion)
-class Solution {
+class Solution310 {
     public List<Integer> findMinHeightTrees(int n, int[][] edges) {
+        if (n == 1) {
+            return new ArrayList(){{
+                add(0);
+            }};
+        }
+        List<Integer> res = new ArrayList<>();
+        List<List<Integer>> graph = new ArrayList<>();
+        for(int i = 0;i < n;++i) {
+            graph.add(new ArrayList<>());
+        }
+        Deque<Integer> queue = new LinkedList<>();
+        int[] degree = new int[n];
+        for(int[] arr : edges) {
+            graph.get(arr[0]).add(arr[1]);
+            graph.get(arr[1]).add(arr[0]);
+            degree[arr[0]]++;
+            degree[arr[1]]++;
+        }
+        for(int i = 0;i < degree.length;++i) {
+            if (degree[i] == 1) {
+                queue.add(i);
+            }
+        }
+        while (!queue.isEmpty()) {
+            res.clear();
+            int len = queue.size();
+            while(--len >= 0){
+                Integer poll = queue.poll();
+                res.add(poll);
+                for(int x : graph.get(poll)) {
+                    degree[x]--;
+                    if(degree[x] == 1) {
+                        queue.add(x);
+                    }
+                }
+            }
 
-        return null;
+        }
+        return res;
     }
 }
 //leetcode submit region end(Prohibit modification and deletion)

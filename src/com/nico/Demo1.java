@@ -25,6 +25,12 @@ public class Demo1 {
     }
 
     @Test
+    public void test7() {
+        int a = 1;
+        System.out.println(~a);
+    }
+
+    @Test
     public void test6() {
         Scanner scanner = new Scanner(System.in);
         int[][] arr = new int[3][2];

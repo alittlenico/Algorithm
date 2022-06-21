@@ -49,31 +49,42 @@ import java.util.LinkedList;
 import java.util.List;
 
 //leetcode submit region begin(Prohibit modification and deletion)
+
+/**
+ * 思路:最小高度树的根节点，一定是位于整个图的中心位置。我们通过不断剔除度为1的节点，最后
+ * 剩下的节点的就是我们要的根节点
+ */
 class Solution310 {
     public List<Integer> findMinHeightTrees(int n, int[][] edges) {
+        //特判
         if (n == 1) {
             return new ArrayList(){{
                 add(0);
             }};
         }
         List<Integer> res = new ArrayList<>();
+        //邻接表
         List<List<Integer>> graph = new ArrayList<>();
         for(int i = 0;i < n;++i) {
             graph.add(new ArrayList<>());
         }
+        //队列 存储度数为1的节点
         Deque<Integer> queue = new LinkedList<>();
         int[] degree = new int[n];
+        //记录图和节点的度数
         for(int[] arr : edges) {
             graph.get(arr[0]).add(arr[1]);
             graph.get(arr[1]).add(arr[0]);
             degree[arr[0]]++;
             degree[arr[1]]++;
         }
+        //度数为1的节点入队
         for(int i = 0;i < degree.length;++i) {
             if (degree[i] == 1) {
                 queue.add(i);
             }
         }
+        //核心
         while (!queue.isEmpty()) {
             res.clear();
             int len = queue.size();

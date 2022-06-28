@@ -1,4 +1,4 @@
-package com.lc.review.c2;
+package com.lc.review.c2_linkedList;
 
 import com.lc.review.ListNode;
 

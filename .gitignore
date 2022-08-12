@@ -1,0 +1,10 @@
+# *.jar
+# *.class
+target/
+src/test/
+src/META-INF/
+# *.MF
+# *.original
+#*.xml
+.idea/
+#.gitignore

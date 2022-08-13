@@ -1,5 +1,5 @@
-# *.jar
-# *.class
+*.jar
+*.class
 target/
 src/test/
 src/META-INF/
@@ -7,4 +7,6 @@ src/META-INF/
 # *.original
 #*.xml
 .idea/
-#.gitignore
+lib/
+.gitignore
+*.iml

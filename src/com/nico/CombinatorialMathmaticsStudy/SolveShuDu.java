@@ -2,6 +2,11 @@ package com.nico.CombinatorialMathmaticsStudy;
 
 import java.util.*;
 
+/**
+ * 数独方 0 1 2 3 中间编号为5
+ * 使用回溯依次求出每个数独方的解
+ * 枚举组合
+ */
 public class SolveShuDu {
     static List<char[][]> shudu0;
     static List<char[][]> shudu1;

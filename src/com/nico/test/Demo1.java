@@ -16,6 +16,16 @@ public class Demo1 {
         System.out.println(sol.digitSum("11111222223",3));
     }
 
+    @Test
+    public void test1001() {
+        double a = 0.47;
+        double b = 0.44;
+        double c = 0.19;
+        double d = 0.5;//.1
+        System.out.println(a + b + c);
+        System.out.println(a + b + c == 1.0);
+    }
+
     public static String reverseInteger(){
         return "";
     }

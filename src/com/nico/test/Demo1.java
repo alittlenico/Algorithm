@@ -2,7 +2,7 @@ package com.nico.test;
 
 import com.alibaba.fastjson.JSONObject;
 import org.junit.Test;
-import org.omg.PortableInterceptor.INACTIVE;
+//import org.omg.PortableInterceptor.INACTIVE;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -10,12 +10,23 @@ import java.util.stream.Collectors;
 public class Demo1 {
     public static void main(String[] args) {
         Demo1 sol = new Demo1();
-        System.out.println(sol.digitSum("11111222223",3));
-        System.out.println(sol.digitSum("111113123131222223",5));
-        System.out.println(sol.digitSum("11111222223",3));
-        System.out.println(sol.digitSum("11111222223",3));
+//        System.out.println(sol.digitSum("11111222223",3));
+//        System.out.println(sol.digitSum("111113123131222223",5));
+//        System.out.println(sol.digitSum("11111222223",3));
+//        System.out.println(sol.digitSum("11111222223",3));
+        int[] nums = new int[]{1,2,3};
+        sol.test1003(nums);
+        System.out.println(nums[0]);
     }
 
+
+    public void test1003(int[] nums) {
+        nums[0] = 999;
+    }
+    public void test1002() {
+        Long[] arr = {1L,2L,3L};
+        Arrays.sort(arr, (o1, o2) -> (int) (o2 - o1));
+    }
     @Test
     public void test1001() {
         double a = 0.47;

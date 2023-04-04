@@ -97,12 +97,12 @@ class Solution99 {
         y.val = temp;
     }
 
-    public static void main(String[] args) {
-        Solution sol = new Solution();
-        TreeNode root = new TreeNode(1);
-        root.left = new TreeNode(3);
-        root.left.right = new TreeNode(2);
-        sol.recoverTree(root);
-    }
+//    public static void main(String[] args) {
+//        Solution sol = new Solution();
+//        TreeNode root = new TreeNode(1);
+//        root.left = new TreeNode(3);
+//        root.left.right = new TreeNode(2);
+//        sol.recoverTree(root);
+//    }
 }
 //leetcode submit region end(Prohibit modification and deletion)

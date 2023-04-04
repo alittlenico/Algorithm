@@ -63,7 +63,7 @@ import java.util.Queue;
  *     ListNode(int val, ListNode next) { this.val = val; this.next = next; }
  * }
  */
-class Solution {
+class Solution23 {
     public ListNode mergeKLists(ListNode[] lists) {
         if(lists.length == 0) return null;
         ListNode dummy = new ListNode(-1);

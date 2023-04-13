@@ -4,6 +4,10 @@ import com.alibaba.fastjson.JSONObject;
 import org.junit.Test;
 //import org.omg.PortableInterceptor.INACTIVE;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -375,6 +379,15 @@ public class Demo1 {
         }
         Map<String,String> mapKV = JSONObject.parseObject(dataValue, Map.class);
         System.out.println(mapKV);
+    }
+
+    @Test
+    public void test23() {
+        DateTimeFormatter df = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        LocalDate parse = LocalDate.parse("2023-03-01", df);
+        LocalDateTime dateTime = LocalDateTime.of(parse, LocalTime.MIN);
+        System.out.println(parse);
+        System.out.println(dateTime);
     }
 
 }

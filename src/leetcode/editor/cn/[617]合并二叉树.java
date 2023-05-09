@@ -42,15 +42,26 @@ package leetcode.editor.cn;//给定两个二叉树，想象当你将它们中的
  *     }
  * }
  */
-class Solution2 {
+class Solution617 {
+
     public TreeNode mergeTrees(TreeNode root1, TreeNode root2) {
-        if(root1 == null) return root2;
-        if(root2 == null) return root1;
-        TreeNode mergedTree = new TreeNode(root1.val + root2.val);
-        mergedTree.left = mergeTrees(root1.left,root2.left);
-        mergedTree.right = mergeTrees(root1.right,root2.right);
-        return mergedTree;
+        if (root1 == null && root2 == null) return null;
+        if (root1 != null && root2 != null) {
+            TreeNode root = new TreeNode(root1.val + root2.val);
+            root.left = mergeTrees(root1.left, root2.left);
+            root.right = mergeTrees(root1.right, root2.right);
+            return root;
+        }
+        return root1 != null ? root1 : root2;
     }
+//    public TreeNode mergeTrees(TreeNode root1, TreeNode root2) {
+//        if(root1 == null) return root2;
+//        if(root2 == null) return root1;
+//        TreeNode mergedTree = new TreeNode(root1.val + root2.val);
+//        mergedTree.left = mergeTrees(root1.left,root2.left);
+//        mergedTree.right = mergeTrees(root1.right,root2.right);
+//        return mergedTree;
+//    }
 
 }
 //leetcode submit region end(Prohibit modification and deletion)

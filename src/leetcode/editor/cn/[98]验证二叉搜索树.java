@@ -38,6 +38,7 @@ package leetcode.editor.cn;//给你一个二叉树的根节点 root ，判断其
 
 //leetcode submit region begin(Prohibit modification and deletion)
 
+
 import java.util.Deque;
 import java.util.LinkedList;
 
@@ -57,7 +58,43 @@ import java.util.LinkedList;
  * }
  */
 class Solution98 {
+
+
+
+    long pre = Long.MIN_VALUE;
+
+    /**
+     * 中序遍历是升序序列
+     * 用栈模拟递归
+     * @param root
+     * @return
+     */
     public boolean isValidBST(TreeNode root) {
+        Deque<TreeNode> stack = new LinkedList<>();
+        while (!stack.isEmpty() || root != null) {
+            while (root != null) {
+                stack.addFirst(root);
+                root = root.left;
+            }
+            root = stack.removeFirst();
+            if (pre >= root.val) return false;
+            pre = root.val;
+            root = root.right;
+        }
+        return true;
+    }
+
+    //递归
+    public boolean isValidBST3(TreeNode root) {
+        if (root == null) return true;
+        boolean flag = isValidBST3(root.left);
+        if (pre >= root.val) return false;
+        pre = root.val;
+        boolean flag1 = isValidBST3(root.right);
+        return flag && flag1;
+    }
+
+    public boolean isValidBST2(TreeNode root) {
         Deque<TreeNode> stack = new LinkedList<>();
         long pre = Long.MIN_VALUE;
         while(!stack.isEmpty() || root != null) {

@@ -46,48 +46,99 @@ import java.util.List;
 
 //leetcode submit region begin(Prohibit modification and deletion)
 class Solution207 {
-    //记录图
-    List<List<Integer>> edges;
-    //每个节点的入度
-    int[] indegree;
+
+    // todo-ly 2023/5/6 11:16  
     public boolean canFinish(int numCourses, int[][] prerequisites) {
-        edges = new ArrayList<>();
-        indegree = new int[numCourses];
-        for(int i = 0;i < numCourses; ++i) {
-            edges.add(new ArrayList<>());
+        //存储图关系的邻接矩阵
+        List<List<Integer>> adj = new ArrayList<>();
+        //每个节点的入度
+        int[] indegree = new int[numCourses];
+        //初始化
+        for (int i = 0;i < numCourses;++i) {
+            adj.add(new ArrayList<>());
         }
-        for(int[] info : prerequisites) {
-            //info[1] --> info[0]
-            edges.get(info[1]).add(info[0]);
-            indegree[info[0]]++;
+        for (int i = 0;i < prerequisites.length;++i) {
+            int[] prerequisite = prerequisites[i];
+            //[1] -> [0]
+            adj.get(prerequisite[1]).add(prerequisite[0]);
+            indegree[prerequisite[0]]++;
         }
-        //初始化栈
-        Deque<Integer> stack = new LinkedList<>();
-        for(int i = 0;i < numCourses; ++i) {
-            //入度为零的点放入栈中
-            if(indegree[i] == 0) {
-                stack.push(i);
+        Deque<Integer> queue = new LinkedList<>();
+        for (int i = 0;i < indegree.length;++i) {
+            //入度为0
+            if (indegree[i] == 0) {
+                queue.addLast(i);
             }
         }
         int count = 0;
-        while(!stack.isEmpty()) {
-            //输出栈顶元素
-            Integer popN = stack.pop();
-            ++count;
-            //访问当前节点所有相邻节点
-            for(int v : edges.get(popN)) {
-                indegree[v]--;
-                if(indegree[v] == 0) {
-                    stack.push(v);
+        while (!queue.isEmpty()) {
+            Integer top = queue.removeFirst();
+            count++;
+            List<Integer> adjTemp = adj.get(top);
+            //访问邻接课程
+            for (int i = 0;i < adjTemp.size();++i) {
+                Integer a = adjTemp.get(i);
+                indegree[a]--;
+                if (indegree[a] == 0) {
+                    queue.addLast(a);
                 }
             }
         }
-        if(count < numCourses) {
-            return false;
-        }else {
-            return true;
-        }
+        return count == numCourses;
     }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+//    //记录图
+//    List<List<Integer>> edges;
+//    //每个节点的入度
+//    int[] indegree;
+//    public boolean canFinish(int numCourses, int[][] prerequisites) {
+//        edges = new ArrayList<>();
+//        indegree = new int[numCourses];
+//        for(int i = 0;i < numCourses; ++i) {
+//            edges.add(new ArrayList<>());
+//        }
+//        for(int[] info : prerequisites) {
+//            //info[1] --> info[0]
+//            edges.get(info[1]).add(info[0]);
+//            indegree[info[0]]++;
+//        }
+//        //初始化栈
+//        Deque<Integer> stack = new LinkedList<>();
+//        for(int i = 0;i < numCourses; ++i) {
+//            //入度为零的点放入栈中
+//            if(indegree[i] == 0) {
+//                stack.push(i);
+//            }
+//        }
+//        int count = 0;
+//        while(!stack.isEmpty()) {
+//            //输出栈顶元素
+//            Integer popN = stack.pop();
+//            ++count;
+//            //访问当前节点所有相邻节点
+//            for(int v : edges.get(popN)) {
+//                indegree[v]--;
+//                if(indegree[v] == 0) {
+//                    stack.push(v);
+//                }
+//            }
+//        }
+//        if(count < numCourses) {
+//            return false;
+//        }else {
+//            return true;
+//        }
+//    }
 
 
 }

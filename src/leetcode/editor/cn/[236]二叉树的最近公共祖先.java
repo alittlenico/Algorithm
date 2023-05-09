@@ -53,24 +53,36 @@ package leetcode.editor.cn;//给定一个二叉树, 找到该树中两个指定�
  * }
  */
 class Solution236 {
+
     public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {
-        // 退出条件
-        // 1. root == null
-        if(null == root) {return null;}
-        // 2. p,q中的任一一个为根节点
-        if(p == root || q == root) {return root;}
-        // 单层逻辑
-        // 1. 检查p,q能否在root.left中找到
-        TreeNode left = lowestCommonAncestor(root.left,p,q);
-        // 2. 检查p,q能否在root.right中找到
-        TreeNode right = lowestCommonAncestor(root.right,p,q);
-        // 3. 若1满足，2不满足，则最近公共节点为root.left
-        if(left != null && right == null) return left;
-        // 4. 若1不满足，2满足，则最近公共节点为root.right
-        if(right != null && left == null) return right;
-        // 5. 若1满足&2满足，则最近公共节点为root
-        if(left != null && right != null) return root;
+        if (root == null) return null;
+        if (p == root || q == root) return root;
+        TreeNode left = lowestCommonAncestor(root.left, p, q);
+        TreeNode right = lowestCommonAncestor(root.right, p, q);
+        if (left != null && right == null) return left;
+        if (left == null && right != null) return right;
+        if (left != null && right != null) return root;
         return null;
     }
+
+//    public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {
+//        // 退出条件
+//        // 1. root == null
+//        if(null == root) {return null;}
+//        // 2. p,q中的任一一个为根节点
+//        if(p == root || q == root) {return root;}
+//        // 单层逻辑
+//        // 1. 检查p,q能否在root.left中找到
+//        TreeNode left = lowestCommonAncestor(root.left,p,q);
+//        // 2. 检查p,q能否在root.right中找到
+//        TreeNode right = lowestCommonAncestor(root.right,p,q);
+//        // 3. 若1满足，2不满足，则最近公共节点为root.left
+//        if(left != null && right == null) return left;
+//        // 4. 若1不满足，2满足，则最近公共节点为root.right
+//        if(right != null && left == null) return right;
+//        // 5. 若1满足&2满足，则最近公共节点为root
+//        if(left != null && right != null) return root;
+//        return null;
+//    }
 }
 //leetcode submit region end(Prohibit modification and deletion)

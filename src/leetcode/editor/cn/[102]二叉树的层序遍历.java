@@ -36,6 +36,7 @@ package leetcode.editor.cn;//给你二叉树的根节点 root ，返回其节点
 
 //leetcode submit region begin(Prohibit modification and deletion)
 
+
 import java.util.*;
 
 /**
@@ -54,7 +55,32 @@ import java.util.*;
  * }
  */
 class Solution102 {
-    public List<List<Integer>> levelOrder(TreeNode root) {
+
+    // todo-ly 2023/4/19 14:36
+    public List<List<Integer>> levelOrder(TreeNode root){
+        List<List<Integer>> res = new ArrayList<>();
+        if (root == null) return res;
+        Deque<TreeNode> queue = new LinkedList<>();
+        queue.offer(root);
+        while (!queue.isEmpty()) {
+            List<TreeNode> temp = new ArrayList<>();
+            List<Integer> item = new ArrayList<>();
+            while (queue.peek() != null) {
+                TreeNode poll = queue.poll();
+                item.add(poll.val);
+                temp.add(poll);
+            }
+            for (TreeNode n : temp) {
+                if (n.left != null)
+                    queue.offer(n.left);
+                if (n.right != null)
+                    queue.offer(n.right);
+            }
+            res.add(item);
+        }
+        return res;
+    }
+    public List<List<Integer>> levelOrder2(TreeNode root) {
         List<List<Integer>> ans = new ArrayList<>();
         //队列
         Deque<TreeNode> queen = new LinkedList<>();

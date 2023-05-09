@@ -52,6 +52,7 @@ package leetcode.editor.cn;//序列化是将一个数据结构或者对象转换
 //leetcode submit region begin(Prohibit modification and deletion)
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -67,21 +68,32 @@ import java.util.stream.Collectors;
  */
 class Codec297 {
 
-    String SEP = ",";
     String NULL = "#";
-
+    String SEP = ",";
     // Encodes a tree to a single string.
     public String serialize(TreeNode root) {
         StringBuilder sb = new StringBuilder();
-        dfs(sb, root);
+        serializeDfs(sb, root);
         return sb.toString();
+    }
+
+    public void serializeDfs(StringBuilder sb, TreeNode root) {
+        if (root == null) {
+            sb.append(NULL).append(SEP);
+            return;
+        }
+        String val = String.valueOf(root.val);
+        sb.append(val).append(SEP);
+        serializeDfs(sb,root.left);
+        serializeDfs(sb, root.right);
+        return;
     }
 
     // Decodes your encoded data to tree.
     public TreeNode deserialize(String data) {
         String[] split = data.split(SEP);
         LinkedList<String> nodes = new LinkedList<>();
-        for (String s :  split) {
+        for (String s : split) {
             nodes.addLast(s);
         }
         return deserializeDfs(nodes);
@@ -90,30 +102,81 @@ class Codec297 {
     public TreeNode deserializeDfs(LinkedList<String> nodes) {
         if (nodes == null || nodes.size() == 0) return null;
         String s = nodes.removeFirst();
-        if (NULL.equals(s)) {
-            return null;
-        }
+        if (NULL.equals(s)) return null;
         int val = Integer.parseInt(s);
-        TreeNode node = new TreeNode(val);
-        node.left = deserializeDfs(nodes);
-        node.right = deserializeDfs(nodes);
-        return node;
+        TreeNode root = new TreeNode(val);
+        root.left = deserializeDfs(nodes);
+        root.right = deserializeDfs(nodes);
+        return root;
     }
 
-    /**
-     * 先序遍历 遍历树把节点值加入到StringBuilder中
-     * @param sb
-     * @param root
-     */
-    public void dfs(StringBuilder sb, TreeNode root) {
-        if (root == null) {
-            sb.append(NULL).append(SEP);
-            return;
-        }
-        sb.append(root.val).append(SEP);
-        dfs(sb, root.left);
-        dfs(sb, root.right);
-    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//    String SEP = ",";
+//    String NULL = "#";
+//
+//    // Encodes a tree to a single string.
+//    public String serialize(TreeNode root) {
+//        StringBuilder sb = new StringBuilder();
+//        dfs(sb, root);
+//        return sb.toString();
+//    }
+//
+//    // Decodes your encoded data to tree.
+//    public TreeNode deserialize(String data) {
+//        String[] split = data.split(SEP);
+//        LinkedList<String> nodes = new LinkedList<>();
+//        for (String s :  split) {
+//            nodes.addLast(s);
+//        }
+//        return deserializeDfs(nodes);
+//    }
+//
+//    public TreeNode deserializeDfs(LinkedList<String> nodes) {
+//        if (nodes == null || nodes.size() == 0) return null;
+//        String s = nodes.removeFirst();
+//        if (NULL.equals(s)) {
+//            return null;
+//        }
+//        int val = Integer.parseInt(s);
+//        TreeNode node = new TreeNode(val);
+//        node.left = deserializeDfs(nodes);
+//        node.right = deserializeDfs(nodes);
+//        return node;
+//    }
+//
+//    /**
+//     * 先序遍历 遍历树把节点值加入到StringBuilder中
+//     * @param sb
+//     * @param root
+//     */
+//    public void dfs(StringBuilder sb, TreeNode root) {
+//        if (root == null) {
+//            sb.append(NULL).append(SEP);
+//            return;
+//        }
+//        sb.append(root.val).append(SEP);
+//        dfs(sb, root.left);
+//        dfs(sb, root.right);
+//    }
 }
 
 // Your Codec object will be instantiated and called as such:

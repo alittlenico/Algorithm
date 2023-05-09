@@ -41,7 +41,38 @@ import java.util.*;
 
 //leetcode submit region begin(Prohibit modification and deletion)
 class Solution438 {
+
+    // todo-ly 2023/5/6 10:48
     public List<Integer> findAnagrams(String s, String p) {
+        int n = s.length();int m = p.length();
+        List<Integer> res = new ArrayList<>();
+        if (n < m) {
+            return res;
+        }
+        int left = 0, right = 0;
+        int[] arr = new int[26];
+        for (char c : p.toCharArray()) {
+            arr[c - 'a']++;
+        }
+        while (right < n) {
+            //匹配上p字符 窗口变大
+            if (arr[s.charAt(right) - 'a'] > 0) {
+                arr[s.charAt(right) - 'a']--;
+                ++right;
+                if (right - left == m) {
+                    res.add(left);
+                    arr[s.charAt(left) - 'a']++;
+                    ++left;
+                }
+            }else {
+                arr[s.charAt(left) - 'a']++;
+                ++left;
+            }
+        }
+        return res;
+    }
+
+    public List<Integer> findAnagrams2(String s, String p) {
         List<Integer> res = new ArrayList<>();
         Map<Character, Integer> window = new HashMap<>();
         Map<Character, Integer> need = new HashMap<>();

@@ -54,48 +54,78 @@ import java.util.Map;
  * }
  */
 class Solution105 {
-    int len;
-    Map<Integer,Integer> map;
+
+    // todo-ly 2023/4/19 21:26
+    // todo-ly 2023/4/24 21:58
+    Map<Integer, Integer> map = new HashMap<>();
     public TreeNode buildTree(int[] preorder, int[] inorder) {
-        //快速从中序遍历中找出左右子树
-        map = new HashMap<>();
-        len = inorder.length;
-        for(int i =0;i < len; ++i ) {
+        int len = preorder.length;
+        for (int i = 0;i < len;++i) {
             map.put(inorder[i], i);
         }
-        return recursiveBuildTree(preorder,0,len-1,
-                inorder,0,len-1);
+        return recursive(preorder, 0, len - 1, inorder, 0, len - 1);
     }
 
-    public TreeNode recursiveBuildTree(int[] preorder,int preL, int preR,
-                                       int[] inorder,int inL,int inR) {
-        //base case 当前子树只有一个节点
-        TreeNode root = new TreeNode(preorder[preL]);
-        if(preL == preR) {
+    public TreeNode recursive(int[] preorder, int pL, int pR,int[] inorder,int iL, int iR) {
+        TreeNode root = new TreeNode(preorder[pL]);
+        if (pL == pR) {
             return root;
         }
-        int border = map.get(preorder[preL]);
-        //左子树节点个数
-        int len = border - inL;
-        //右子树节点个数
-        int rLen = inR - border;
-        //左子树前序区间
-        int[] lPre = new int[] {preL+1,preL+len};
-        //右子树的前序区间
-        int[] rPre = new int[] {preL+len+1,preR};
-        //左子树的中序区间
-        int[] lIn = new int[] {inL, border - 1};
-        //右子树的中序区间
-        int[] rIn = new int[] {border + 1,inR};
-        if(len > 0) {
-            root.left = recursiveBuildTree(preorder,lPre[0],lPre[1],
-                    inorder,lIn[0],lIn[1]);
-        }
-        if(rLen > 0) {
-            root.right = recursiveBuildTree(preorder,rPre[0],rPre[1],
-                    inorder,rIn[0],rIn[1]);
-        }
+        int border = map.get(preorder[pL]);
+        int leftLen = border - iL;
+        int rightLen = iR - border;
+        if (leftLen > 0) root.left = recursive(preorder, pL + 1, pL + leftLen,
+                inorder, iL, border - 1);
+        if (rightLen > 0) root.right = recursive(preorder, pL + leftLen + 1, pL + leftLen + rightLen,
+                inorder, border + 1, border + rightLen);
         return root;
     }
+
+
+
+
+//    int len;
+//    Map<Integer,Integer> map;
+//    public TreeNode buildTree(int[] preorder, int[] inorder) {
+//        //快速从中序遍历中找出左右子树
+//        map = new HashMap<>();
+//        len = inorder.length;
+//        for(int i =0;i < len; ++i ) {
+//            map.put(inorder[i], i);
+//        }
+//        return recursiveBuildTree(preorder,0,len-1,
+//                inorder,0,len-1);
+//    }
+
+//    public TreeNode recursiveBuildTree(int[] preorder,int preL, int preR,
+//                                       int[] inorder,int inL,int inR) {
+//        //base case 当前子树只有一个节点
+//        TreeNode root = new TreeNode(preorder[preL]);
+//        if(preL == preR) {
+//            return root;
+//        }
+//        int border = map.get(preorder[preL]);
+//        //左子树节点个数
+//        int len = border - inL;
+//        //右子树节点个数
+//        int rLen = inR - border;
+//        //左子树前序区间
+//        int[] lPre = new int[] {preL+1,preL+len};
+//        //右子树的前序区间
+//        int[] rPre = new int[] {preL+len+1,preR};
+//        //左子树的中序区间
+//        int[] lIn = new int[] {inL, border - 1};
+//        //右子树的中序区间
+//        int[] rIn = new int[] {border + 1,inR};
+//        if(len > 0) {
+//            root.left = recursiveBuildTree(preorder,lPre[0],lPre[1],
+//                    inorder,lIn[0],lIn[1]);
+//        }
+//        if(rLen > 0) {
+//            root.right = recursiveBuildTree(preorder,rPre[0],rPre[1],
+//                    inorder,rIn[0],rIn[1]);
+//        }
+//        return root;
+//    }
 }
 //leetcode submit region end(Prohibit modification and deletion)

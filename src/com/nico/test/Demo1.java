@@ -4,6 +4,9 @@ import com.alibaba.fastjson.JSONObject;
 import org.junit.Test;
 //import org.omg.PortableInterceptor.INACTIVE;
 
+import java.math.BigDecimal;
+import java.math.MathContext;
+import java.math.RoundingMode;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -388,6 +391,17 @@ public class Demo1 {
         LocalDateTime dateTime = LocalDateTime.of(parse, LocalTime.MIN);
         System.out.println(parse);
         System.out.println(dateTime);
+    }
+
+    @Test
+    public void test24() {
+        BigDecimal value = new BigDecimal("64");
+//        BigDecimal x = new BigDecimal(Math.sqrt(value.doubleValue()));
+//        x = x.setScale(2, RoundingMode.HALF_UP);
+//        System.out.println(x);
+
+        BigDecimal sqrt = value.sqrt(new MathContext(3));
+        System.out.println(sqrt);
     }
 
 }

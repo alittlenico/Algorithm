@@ -66,25 +66,66 @@ import java.util.List;
  * }
  */
 class Solution114 {
+    // todo-ly 2023/4/25 11:29
     public void flatten(TreeNode root) {
-        if(root == null) {
-            return;
+        if (root == null) return;
+        flatten(root.left);
+        flatten(root.right);
+        TreeNode left = root.left;
+        TreeNode right = root.right;
+        root.left = null;
+        root.right = left;
+        TreeNode p = root;
+        while (p.right != null) {
+            p = p.right;
         }
-        List<TreeNode> list = new ArrayList<>();
-        preorder(root,list);
-        TreeNode cur = root;
-        cur.left = null;
-        for(int i = 1;i < list.size(); ++i) {
-            TreeNode node = list.get(i);
-            node.left = null;
-            cur.right = node;
-            cur = cur.right;
-        }
+        p.right = right;
     }
 
-    public void preorder(TreeNode root, List<TreeNode> list) {
-        Deque<TreeNode> stack = new LinkedList<>();
+    // todo-ly 2023/4/25 11:04
+//    public void flatten(TreeNode root) {
+//        if (root == null) return;
+//        List<TreeNode> list = new ArrayList<>();
+//        Deque<TreeNode> stack = new LinkedList<>();
+//        stack.push(root);
+//        while (!stack.isEmpty()) {
+//            TreeNode top = stack.poll();
+//            list.add(top);
+//            if (top.right != null) {
+//                stack.push(top.right);
+//            }
+//            if (top.left != null) {
+//                stack.push(top.left);
+//            }
+//        }
+//        for (int i = 0;i < list.size() - 1;++i) {
+//            TreeNode treeNode = list.get(i);
+//            treeNode.left = null;
+//            treeNode.right = list.get(i+1);
+//        }
+//        list.get(list.size() - 1).left = null;
+//        list.get(list.size() - 1).right = null;
+//    }
 
-    }
+//    public void flatten(TreeNode root) {
+//        if(root == null) {
+//            return;
+//        }
+//        List<TreeNode> list = new ArrayList<>();
+//        preorder(root,list);
+//        TreeNode cur = root;
+//        cur.left = null;
+//        for(int i = 1;i < list.size(); ++i) {
+//            TreeNode node = list.get(i);
+//            node.left = null;
+//            cur.right = node;
+//            cur = cur.right;
+//        }
+//    }
+//
+//    public void preorder(TreeNode root, List<TreeNode> list) {
+//        Deque<TreeNode> stack = new LinkedList<>();
+//
+//    }
 }
 //leetcode submit region end(Prohibit modification and deletion)

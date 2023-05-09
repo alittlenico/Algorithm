@@ -43,10 +43,17 @@ package leetcode.editor.cn;//给你一个整数数组 nums，有一个大小为 
 
 import com.lc.structure.MaxPQ;
 
+import java.util.Deque;
 import java.util.LinkedList;
 
 //leetcode submit region begin(Prohibit modification and deletion)
 class Solution239 {
+
+    // todo-ly 2023/5/5 21:48
+//    public int[] maxSlidingWindow(int[] nums, int k) {
+//
+//    }
+
     public int[] maxSlidingWindow(int[] nums, int k) {
         int n = nums.length;
         int[] res = new int[n - k + 1];
@@ -64,9 +71,10 @@ class Solution239 {
         return res;
     }
 
+    // todo-ly 2023/5/5 22:12  
     /**单调队列*/
     class MonotonicQueue {
-        LinkedList<Integer> queue = new LinkedList<>();
+        Deque<Integer> queue = new LinkedList<>();
 
         /**移除比当前元素小的*/
         public void push(int n) {

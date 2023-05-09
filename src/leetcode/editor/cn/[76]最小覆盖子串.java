@@ -59,7 +59,44 @@ import java.util.Objects;
 
 //leetcode submit region begin(Prohibit modification and deletion)
 class Solution76 {
+
+    // todo-ly 2023/5/5 21:22
     public String minWindow(String s, String t) {
+        Map<Character, Integer> map = new HashMap<>();
+        Map<Character, Integer> need = new HashMap<>();
+        int valid = 0;
+        int left = 0, right = 0;
+        int res = Integer.MAX_VALUE;
+        int start = 0;
+        for (Character c : t.toCharArray()) {
+            need.put(c, need.getOrDefault(c, 0) + 1);
+        }
+        int len = s.length();
+        while (right < len) {
+            char c = s.charAt(right);
+            ++right;
+            map.put(c, map.getOrDefault(c,0) + 1);
+            if (Objects.equals(map.get(c), need.get(c))) {
+                valid++;
+            }
+            while (valid == need.size()) {
+                if (right - left < res) {
+                    start = left;
+                    res = right - left;
+                }
+                char c1 = s.charAt(left);
+                ++left;
+                map.put(c1, map.get(c1) - 1);
+                if (need.containsKey(c1) && need.get(c1) > map.get(c1)) {
+                    --valid;
+                }
+            }
+        }
+
+        return res == Integer.MAX_VALUE ? "" : s.substring(start, start + res);
+    }
+
+    public String minWindow2(String s, String t) {
         int left = 0,right = 0;
         Map<Character, Integer> window = new HashMap<>();
         Map<Character, Integer> need = new HashMap<>();

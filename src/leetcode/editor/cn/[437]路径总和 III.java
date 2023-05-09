@@ -37,6 +37,7 @@ package leetcode.editor.cn;//给定一个二叉树的根节点 root ，和一个
 
 import java.util.ArrayDeque;
 import java.util.Deque;
+import java.util.LinkedList;
 
 /**
  * Definition for a binary tree node.
@@ -53,39 +54,95 @@ import java.util.Deque;
  *     }
  * }
  */
-class Solution1 {
-    int res = 0;
+class Solution437 {
+
     int t;
+    int res;
+
     public int pathSum(TreeNode root, int targetSum) {
         t = targetSum;
-        if(root == null) return 0;
+        if (root == null) return 0;
         bfs(root);
         return res;
     }
 
-    void bfs(TreeNode node){//遍历所有节点 可采用任何方式
-        Deque<TreeNode> queue = new ArrayDeque<TreeNode>();
-        queue.add(node);
-        while(!queue.isEmpty()){//层级遍历 或称bfs
-            TreeNode curNode = queue.remove();
-            dfs2(curNode,curNode.val);
-            if(curNode.left != null)
-                queue.add(curNode.left);
-            if(curNode.right != null)
-                queue.add(curNode.right);
+    /**
+     * 层序遍历所有节点
+     * @param root
+     */
+    void bfs(TreeNode root) {
+        Deque<TreeNode> queue = new LinkedList<>();
+        queue.addLast(root);
+        while (!queue.isEmpty()) {
+            TreeNode node = queue.removeFirst();
+            dfs(node, node.val);
+            if (node.left != null) queue.addLast(node.left);
+            if (node.right != null) queue.addLast(node.right);
         }
     }
 
     /**
-        求当前节点向下的路径数
-
+     * 向下深度遍历到当前节点时 累积的值
+     * @param root
+     * @param sum
      */
-    void dfs2(TreeNode node,int val) {
-        if(val == t) ++res;
-        if(node.left != null)
-            dfs2(node.left,val + node.left.val);
-        if(node.right != null)
-            dfs2(node.right,val + node.right.val);
+    void dfs(TreeNode root,long sum) {
+        if (sum == t) ++res;
+        if (root.left != null)
+            dfs(root.left, sum + root.left.val);
+        if (root.right != null)
+            dfs(root.right, sum + root.right.val);
     }
+
+
+    public static void main(String[] args) {
+
+//        Solution sol = new Solution();
+//        String[] strs = {"1000000000", "1000000000", "null", "294967296", "null", "1000000000", "null", "1000000000", "null", "1000000000"};
+//        TreeNode treeNode = MyTreeUtil.restoreTreeFromLevelOrder(strs);
+//        sol.pathSum(treeNode, 0);
+//        Deque<Integer> queue = new LinkedList<>();
+//        for (int i = 0;i < 5;i++) {
+//            queue.addFirst(i);
+//        }
+//        while (!queue.isEmpty()) {
+//            Integer integer = queue.removeLast();
+//            System.out.println(integer);
+//        }
+    }
+
+//    int res = 0;
+//    int t;
+//    public int pathSum(TreeNode root, int targetSum) {
+//        t = targetSum;
+//        if(root == null) return 0;
+//        bfs(root);
+//        return res;
+//    }
+//
+//    void bfs(TreeNode node){//遍历所有节点 可采用任何方式
+//        Deque<TreeNode> queue = new ArrayDeque<TreeNode>();
+//        queue.add(node);
+//        while(!queue.isEmpty()){//层级遍历 或称bfs
+//            TreeNode curNode = queue.remove();
+//            dfs2(curNode,curNode.val);
+//            if(curNode.left != null)
+//                queue.add(curNode.left);
+//            if(curNode.right != null)
+//                queue.add(curNode.right);
+//        }
+//    }
+//
+//    /**
+//        求当前节点向下的路径数
+//
+//     */
+//    void dfs2(TreeNode node,int val) {
+//        if(val == t) ++res;
+//        if(node.left != null)
+//            dfs2(node.left,val + node.left.val);
+//        if(node.right != null)
+//            dfs2(node.right,val + node.right.val);
+//    }
 }
 //leetcode submit region end(Prohibit modification and deletion)

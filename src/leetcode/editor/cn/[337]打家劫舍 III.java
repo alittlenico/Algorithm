@@ -60,23 +60,39 @@ import java.util.Map;
  * }
  */
 class Solution337 {
+
     public int rob(TreeNode root) {
-        int[] res = postOrderedDfs(root);
-        return Math.max(res[0], res[1]);
+        int[] val = dfs(root);
+        return Math.max(val[0], val[1]);
     }
 
-   public int[] postOrderedDfs(TreeNode root) {
-        if (root == null) {
-            return new int[2];
-        }
-        //res[0] 当前节点不选 res[1]当前节点选择
+    int[] dfs(TreeNode root) {
+        if (root == null) return new int[2];
         int[] res = new int[2];
-        int[] resLeft = postOrderedDfs(root.left);
-        int[] resRight = postOrderedDfs(root.right);
-        //当前节点不偷：左孩子能偷到的最多钱 + 右孩子能偷到的最多钱
-        res[0] = Math.max(resLeft[0], resLeft[1]) + Math.max(resRight[0], resRight[1]);
-        res[1] = resLeft[0] + resRight[0] + root.val;
+        int[] left = dfs(root.left);
+        int[] right = dfs(root.right);
+        res[0] = Math.max(left[0], left[1]) + Math.max(right[0],right[1]);
+        res[1] = root.val + left[0] + right[0];
         return res;
-   }
+    }
+
+//    public int rob(TreeNode root) {
+//        int[] res = postOrderedDfs(root);
+//        return Math.max(res[0], res[1]);
+//    }
+//
+//   public int[] postOrderedDfs(TreeNode root) {
+//        if (root == null) {
+//            return new int[2];
+//        }
+//        //res[0] 当前节点不选 res[1]当前节点选择
+//        int[] res = new int[2];
+//        int[] resLeft = postOrderedDfs(root.left);
+//        int[] resRight = postOrderedDfs(root.right);
+//        //当前节点不偷：左孩子能偷到的最多钱 + 右孩子能偷到的最多钱
+//        res[0] = Math.max(resLeft[0], resLeft[1]) + Math.max(resRight[0], resRight[1]);
+//        res[1] = resLeft[0] + resRight[0] + root.val;
+//        return res;
+//   }
 }
 //leetcode submit region end(Prohibit modification and deletion)

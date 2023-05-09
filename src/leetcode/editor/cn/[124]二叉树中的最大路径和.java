@@ -34,6 +34,8 @@ package leetcode.editor.cn;//路径 被定义为一条从树中任意节点出�
 
 
 //leetcode submit region begin(Prohibit modification and deletion)
+
+
 /**
  * Definition for a binary tree node.
  * public class TreeNode {
@@ -51,22 +53,49 @@ package leetcode.editor.cn;//路径 被定义为一条从树中任意节点出�
  */
 class Solution124 {
 
-    private int res = Integer.MIN_VALUE;
+    int res = Integer.MIN_VALUE;
     public int maxPathSum(TreeNode root) {
         dfs(root);
         return res;
-
     }
 
-    int dfs(TreeNode node) {
-        if(node == null) {return 0;}
-        int left = Math.max(0, dfs(node.left));
-        int right = Math.max(0, dfs(node.right));
-        int leftOrRightRoot = Math.max(left, right) + node.val;
-        int lrr = left + node.val + right;
-        res = Math.max(res, leftOrRightRoot);
-        res = Math.max(res, lrr);
-        return leftOrRightRoot;
+    int dfs(TreeNode root) {
+        if (root == null) return 0;
+        int left = Math.max(0, dfs(root.left));
+        int right = Math.max(0, dfs(root.right));
+        int returnVal = Math.max(left, right) + root.val;
+        int val = left + right + root.val;
+        res = Math.max(res, returnVal);
+        res = Math.max(res, val);
+        return returnVal;
     }
+
+    public static void main(String[] args) {
+        int a = Integer.MIN_VALUE;
+        int b = 1;
+        if (a > b) {
+            System.out.println("111");
+        }else {
+            System.out.println("hhh");
+        }
+    }
+
+//    private int res = Integer.MIN_VALUE;
+//    public int maxPathSum(TreeNode root) {
+//        dfs(root);
+//        return res;
+//
+//    }
+//
+//    int dfs(TreeNode node) {
+//        if(node == null) {return 0;}
+//        int left = Math.max(0, dfs(node.left));
+//        int right = Math.max(0, dfs(node.right));
+//        int leftOrRightRoot = Math.max(left, right) + node.val;
+//        int lrr = left + node.val + right;
+//        res = Math.max(res, leftOrRightRoot);
+//        res = Math.max(res, lrr);
+//        return leftOrRightRoot;
+//    }
 }
 //leetcode submit region end(Prohibit modification and deletion)

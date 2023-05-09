@@ -40,11 +40,40 @@ package leetcode.editor.cn;//给定一个字符串 s ，请你找出其中不含
 
 
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Objects;
 
 //leetcode submit region begin(Prohibit modification and deletion)
 class Solution3_1 {
+
+    // todo-ly 2023/5/5 21:03  
     public int lengthOfLongestSubstring(String s) {
+        int left = 0,right = 0;
+        int res = Integer.MIN_VALUE;
+        int len = s.length();
+        HashSet<Character> set = new HashSet<>();
+        while (right < len) {
+            Character c = s.charAt(right);
+            if (!set.contains(c)) {
+                set.add(c);
+                ++right;
+                res = Math.max(res, right - left);
+            }else {
+                while (!Objects.equals(s.charAt(left),c)) {
+                    set.remove(s.charAt(left));
+                    ++left;
+                }
+                set.remove(left);
+                ++left;
+                set.add(c);
+                right++;
+            }
+        }
+        return res == Integer.MIN_VALUE ? 0 : res;
+    }
+
+    public int lengthOfLongestSubstring2(String s) {
         Map<Character, Integer> window = new HashMap<>();
         int left = 0, right = 0,res = 0;
         while (right < s.length()) {
@@ -59,6 +88,13 @@ class Solution3_1 {
             res = Math.max(res,right - left);
         }
         return res;
+    }
+
+    public static void main(String[] args) {
+        String s = "abc";
+        HashSet<Character> set = new HashSet<>();
+        set.add('a');
+        System.out.println(set.contains(s.charAt(0)));
     }
 }
 //leetcode submit region end(Prohibit modification and deletion)

@@ -73,18 +73,29 @@ package leetcode.editor.cn;//给出二叉 搜索 树的根节点，该树的节�
  * }
  */
 class Solution538 {
+
+    int sum = 0;
     public TreeNode convertBST(TreeNode root) {
-        traverse(root);
+        if (root == null) return null;
+        convertBST(root.right);
+        sum += root.val;
+        root.val = sum;
+        convertBST(root.left);
         return root;
     }
 
-    int sum = 0;
-    void traverse(TreeNode root) {
-        if (root == null) return;
-        traverse(root.right);
-        sum += root.val;
-        root.val = sum;
-        traverse(root.left);
-    }
+//    public TreeNode convertBST(TreeNode root) {
+//        traverse(root);
+//        return root;
+//    }
+//
+//    int sum = 0;
+//    void traverse(TreeNode root) {
+//        if (root == null) return;
+//        traverse(root.right);
+//        sum += root.val;
+//        root.val = sum;
+//        traverse(root.left);
+//    }
 }
 //leetcode submit region end(Prohibit modification and deletion)

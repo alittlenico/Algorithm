@@ -109,8 +109,16 @@ class Solution399 {
         sol.calcEquation(equations, values, queries);
     }
 
-
+    // todo-ly 2023/5/9 14:43
+    //复习dijkstra算法
     public double[] calcEquation(List<List<String>> equations, double[] values, List<List<String>> queries) {
+
+
+        return null;
+    }
+
+
+    public double[] calcEquation3(List<List<String>> equations, double[] values, List<List<String>> queries) {
         Map<String, Integer> map = new HashMap<>();
         int nodeNum = 0;
         //将字符与数字进行映射
@@ -139,6 +147,7 @@ class Solution399 {
         for (int k = 0;k < nodeNum;++k) {
             for (int i = 0;i < nodeNum;++i) {
                 for (int j = 0;j < nodeNum;++j) {
+                    if (graph[i][j] > 0) continue;
                     //求到的结果即为唯一结果
                     if (graph[i][k] > 0 && graph[k][j] > 0) {
                         graph[i][j] = graph[i][k] * graph[k][j];
@@ -210,9 +219,10 @@ class Solution399 {
                 if (ia == ib) {
                     result = 1.0;
                 } else {
+                    //bfs求解两点之间距离
                     Queue<Integer> points = new LinkedList<Integer>();
                     points.offer(ia);
-                    //ratios存放到当前节点值  a -> b v1 b -> c v2   ratios[0] ratios[1]
+                    //ratios存放到当前节点的值  a -> b 值:v1,  b -> c 值:v2   ratios[0] ratios[1]
                     // a -> c = (a/c) = a/(b/v2) = a/b * v2  ratios[2]=ratios[1] * v2
                     double[] ratios = new double[nvars];
                     Arrays.fill(ratios, -1.0);
@@ -223,7 +233,7 @@ class Solution399 {
                         for (Pair pair : edges[x]) {
                             int y = pair.index;
                             double val = pair.value;
-                            //ratios是负 未更新数据或者为求到值
+                            //ratios是负 未更新数据或者未求到值
                             if (ratios[y] < 0) {
                                 ratios[y] = ratios[x] * val;
                                 points.offer(y);

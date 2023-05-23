@@ -43,13 +43,13 @@ package leetcode.editor.cn;//给你一个链表数组，每个链表都已经按
 // lists[i].length 的总和不超过 10^4 
 // 
 //
-// Related Topics 链表 分治 堆（优先队列） 归并排序 👍 2235 👎 0
+// Related Topics 链表 分治 堆（优先队列） 归并排序 👍 2447 👎 0
 
 
 //leetcode submit region begin(Prohibit modification and deletion)
 
 
-import java.util.List;
+import java.util.Comparator;
 import java.util.PriorityQueue;
 import java.util.Queue;
 
@@ -64,11 +64,59 @@ import java.util.Queue;
  * }
  */
 class Solution23 {
+    /**
+     * o(logk * n)
+     * @param lists
+     * @return
+     */
+//    public ListNode mergeKLists(ListNode[] lists) {
+//        int n = lists.length;
+//        if (n == 0) return null;
+//        return recursion(lists, 0, lists.length - 1);
+//    }
+//
+//    public ListNode recursion(ListNode[] lists, int s, int e) {
+//        if (s < e) {
+//            int mid = (s + e) >> 1;
+//            ListNode left = recursion(lists, s, mid);
+//            ListNode right = recursion(lists, mid + 1, e);
+//            return merge(left, right);
+//        }
+//        return lists[s];
+//    }
+//
+//    public ListNode merge(ListNode node1, ListNode node2) {
+//        ListNode dummy = new ListNode(-1);
+//        ListNode head = dummy;
+//        while (node1 != null && node2 != null) {
+//            if (node1.val <= node2.val) {
+//                head.next = node1;
+//                node1 = node1.next;
+//            }else {
+//                head.next = node2;
+//                node2 = node2.next;
+//            }
+//            head = head.next;
+//        }
+//        if (node1 != null) {
+//            head.next = node1;
+//        }
+//        if (node2 != null) {
+//            head.next = node2;
+//        }
+//        return dummy.next;
+//    }
+
+    /**
+     * logK * n
+     * @param lists
+     * @return
+     */
     public ListNode mergeKLists(ListNode[] lists) {
         if(lists.length == 0) return null;
         ListNode dummy = new ListNode(-1);
         ListNode p = dummy;
-        Queue<ListNode> queue = new PriorityQueue<>(lists.length, (a, b) -> a.val - b.val);
+        Queue<ListNode> queue = new PriorityQueue<>(lists.length, Comparator.comparingInt(a -> a.val));
         for(ListNode node : lists) {
             if(node != null)
                 queue.add(node);

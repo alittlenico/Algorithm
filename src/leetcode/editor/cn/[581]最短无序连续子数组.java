@@ -56,30 +56,57 @@ class Solution581 {
 //
 //    }
 
-    public int findUnsortedSubarray1(int[] nums) {
-        //排序
+    //规律 [A B C] A中任意元素均小于B、C元素 找B左边界
+    // A、B任意元素小于C 找B右边界
+    public int findUnsortedSubarray(int[] nums) {
+        int min = Integer.MAX_VALUE;
+        int max = Integer.MIN_VALUE;
+        int left = -1;int right = -1;
         int n = nums.length;
-        int[] nums_ = new int[n];
         for (int i = 0;i < n;++i) {
-            nums_[i] = nums[i];
-        }
-        Arrays.sort(nums_);
-        int left = 0,right = 0;
-        //左边界
-        for (int i = 0;i < n;++i) {
-            if (nums[i] != nums_[i]) {
-                left = i;
-                break;
-            }
-        }
-        //右边界
-        for (int i = n-1;i >= 0;--i) {
-            if (nums[i] != nums_[i]) {
+            if (max > nums[i]) {
                 right = i;
-                break;
             }
+            if (min < nums[n - 1 - i]) {
+                left = n - 1 - i;
+            }
+            max = Math.max(max, nums[i]);
+            min = Math.min(min, nums[n - 1 - i]);
         }
-        return left == right ? 0 : right - left + 1;
+        if (left == -1) return 0;
+        return right - left + 1;
     }
+
+//    public static void main(String[] args) {
+//        Solution sol = new Solution();
+//        System.out.println(sol.findUnsortedSubarray1(new int[]{2, 6, 4, 8, 10, 9, 15}));
+//    }
+
+    // o(nlogn)
+//    public int findUnsortedSubarray1(int[] nums) {
+//        //排序
+//        int n = nums.length;
+//        int[] nums_ = new int[n];
+//        for (int i = 0;i < n;++i) {
+//            nums_[i] = nums[i];
+//        }
+//        Arrays.sort(nums_);
+//        int left = 0,right = 0;
+//        //左边界
+//        for (int i = 0;i < n;++i) {
+//            if (nums[i] != nums_[i]) {
+//                left = i;
+//                break;
+//            }
+//        }
+//        //右边界
+//        for (int i = n-1;i >= 0;--i) {
+//            if (nums[i] != nums_[i]) {
+//                right = i;
+//                break;
+//            }
+//        }
+//        return left == right ? 0 : right - left + 1;
+//    }
 }
 //leetcode submit region end(Prohibit modification and deletion)

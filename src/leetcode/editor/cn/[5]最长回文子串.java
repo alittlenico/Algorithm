@@ -32,7 +32,7 @@ package leetcode.editor.cn;//给你一个字符串 s，找到 s 中最长的回�
 
 
 //leetcode submit region begin(Prohibit modification and deletion)
-class Solution {
+class Solution5 {
     /**
      * 动态规划
      * o(n^2)
@@ -102,9 +102,9 @@ class Solution {
     }
 
 
-    public static void main(String[] args) {
-        Solution sol = new Solution();
-        sol.longestPalindrome("cbbd");
-    }
+//    public static void main(String[] args) {
+//        Solution sol = new Solution();
+//        sol.longestPalindrome("cbbd");
+//    }
 }
 //leetcode submit region end(Prohibit modification and deletion)

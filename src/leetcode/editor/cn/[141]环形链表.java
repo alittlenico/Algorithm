@@ -55,7 +55,6 @@ package leetcode.editor.cn;//给你一个链表的头节点 head ，判断链表
 
 //leetcode submit region begin(Prohibit modification and deletion)
 
-import com.nico.leetcode.ListNode;
 
 /**
  * Definition for singly-linked list.
@@ -69,14 +68,29 @@ import com.nico.leetcode.ListNode;
  * }
  */
 class Solution141 {
-    final int LIMIT = 10001;
     public boolean hasCycle(ListNode head) {
-        int count = 0;
-        while (head != null) {
-            head = head.next;
-            ++count;
+        if (head == null || head.next == null) return false;
+        ListNode slow = head, fast = head.next;
+        boolean flag = false;
+        while (fast != null && fast.next != null) {
+            if (slow == fast) {
+                flag = true;
+                break;
+            }
+            fast = fast.next.next;
+            slow = slow.next;
         }
-        return count < LIMIT;
+        return flag;
     }
+
+//    final int LIMIT = 10001;
+//    public boolean hasCycle(ListNode head) {
+//        int count = 0;
+//        while (head != null) {
+//            head = head.next;
+//            ++count;
+//        }
+//        return count < LIMIT;
+//    }
 }
 //leetcode submit region end(Prohibit modification and deletion)

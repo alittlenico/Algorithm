@@ -53,10 +53,34 @@ package leetcode.editor.cn;//请你设计并实现一个满足 LRU (最近最少
 
 
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 //leetcode submit region begin(Prohibit modification and deletion)
-class LRUCache {
+//class LRUCache extends LinkedHashMap<Integer, Integer>{
+
+//    private int capacity;
+//
+//    public LRUCache() {}
+//
+//    public LRUCache(int capacity) {
+//        //按访问排序
+//        super(capacity, 0.75F, true);
+//        this.capacity = capacity;
+//    }
+//
+//    public int get(int key) {
+//        return getOrDefault(key, -1);
+//    }
+//
+//    @Override
+//    protected boolean removeEldestEntry(Map.Entry<Integer, Integer> eldest) {
+//        return size() > capacity;
+//    }
+
+
+    class LRUCache{
+
 
     //自定义双向链表
     class MyLinkedNode {
@@ -106,7 +130,7 @@ class LRUCache {
         if(node == null) {
             MyLinkedNode newNode = new MyLinkedNode(key,value);
             cache.put(key,newNode);
-            addToHead(node);
+            addToHead(newNode);
             ++size;
             if(size > capacity) {
                 MyLinkedNode tailNode = removeTailNode();
@@ -152,8 +176,9 @@ class LRUCache {
      * 删除尾节点
      */
     private MyLinkedNode removeTailNode() {
+        MyLinkedNode res = tail.pre;
         removeNode(tail.pre);
-        return tail.pre;
+        return res;
     }
 }
 

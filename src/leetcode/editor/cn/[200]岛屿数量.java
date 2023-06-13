@@ -45,11 +45,37 @@ package leetcode.editor.cn;//给你一个由 '1'（陆地）和 '0'（水）组�
 
 //leetcode submit region begin(Prohibit modification and deletion)
 class Solution200 {
+    int cnt = 0;
+    char[][] used;
+    //按每个格子只会遍历一次 复杂度为 o(n * m)
     public int numIslands(char[][] grid) {
-        
-        return -1;
+        //对grid进行深拷贝 复制到used
+        int n = grid.length, m = grid[0].length;
+        used = new char[n][m];
+        for (int i = 0;i < n;++i) {
+            System.arraycopy(grid[i], 0,used[i], 0, grid[i].length);
+        }
+        for (int i = 0;i < n;++i) {
+            for (int j = 0;j < m;++j) {
+                if (used[i][j] == '1') {
+                    ++cnt;
+                    dfs(grid,used,i,j,n,m);
+                }
+            }
+        }
+        return cnt;
     }
 
+    private void dfs(char[][] grid, char[][] used, int x, int y, int n, int m) {
+        if (!(x >= 0 && x < n && y >= 0 && y < m)) return;
+        if (used[x][y] == '0') return;
+        used[x][y] = '0';
+        //遍历四个方向
+        dfs(grid,used,x - 1, y,n,m);
+        dfs(grid,used,x + 1, y,n,m);
+        dfs(grid,used,x, y - 1,n,m);
+        dfs(grid,used,x, y + 1,n,m);
+    }
 
 }
 //leetcode submit region end(Prohibit modification and deletion)

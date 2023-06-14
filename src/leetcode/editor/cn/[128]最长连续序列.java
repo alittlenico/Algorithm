@@ -35,7 +35,30 @@ import java.util.Map;
 import java.util.Set;
 
 //leetcode submit region begin(Prohibit modification and deletion)
-class Solution128 {
+class Solution {
+
+    // todo-ly 2023/6/14 17:34
+//    public int longestConsecutive(int[] nums) {
+//        Set<Integer> set = new HashSet<>();
+//        for (int x : nums) {
+//            set.add(x);
+//        }
+//        int res = 0;
+//        //复杂度o(n) 只有是连续序列中第一个数(x+1不能获得更长的结果)才需要进入内循环,外层循环是o(n) 共o(2n)
+//        //数组中每个数只会进入一次内循环，遍历连续序列，序列中其他数不再进入内循环
+//        for (int x : nums) {
+//            if (!set.contains(x - 1)) {
+//                int curMax = 1, curVal = x;
+//                while (set.contains(curVal + 1)) {
+//                    curMax += 1;
+//                    curVal += 1;
+//                }
+//                res = Math.max(res, curMax);
+//            }
+//        }
+//        return res;
+//    }
+
     public int longestConsecutive(int[] nums) {
         //用hash表记录每个数 和包含它的连续区间
         Map<Integer, Integer> map = new HashMap<>();
@@ -48,6 +71,7 @@ class Solution128 {
                 Integer rightLen = map.getOrDefault(x + 1, 0);
                 int curLen = leftLen+rightLen+1;
                 ans = Math.max(ans,curLen);
+                // todo-ly 2023/6/14   看不懂
                 map.put(x,-1);
                 map.put(x-leftLen,curLen);
                 map.put(x+rightLen,curLen);

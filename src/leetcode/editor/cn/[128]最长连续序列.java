@@ -35,7 +35,7 @@ import java.util.Map;
 import java.util.Set;
 
 //leetcode submit region begin(Prohibit modification and deletion)
-class Solution {
+class Solution128 {
 
     // todo-ly 2023/6/14 17:34
 //    public int longestConsecutive(int[] nums) {
@@ -72,6 +72,8 @@ class Solution {
                 int curLen = leftLen+rightLen+1;
                 ans = Math.max(ans,curLen);
                 // todo-ly 2023/6/14   看不懂
+                // 考虑两种情况:1.x+1还没有访问，此时rightLen=0,x是区间的右边界。在下一次遍历到x+1,取x的连续区间长度(map.put(x+0,curLen);)是左连续区间的长度
+                //2.x+1已经访问了,那么就不会遍历x+1了,就不需要取x的区间长度，所以仅标记即可。
                 map.put(x,-1);
                 map.put(x-leftLen,curLen);
                 map.put(x+rightLen,curLen);

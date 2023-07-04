@@ -43,15 +43,53 @@ package leetcode.editor.cn;//给你一个整数数组 nums ，请你找出一个
 
 //leetcode submit region begin(Prohibit modification and deletion)
 class Solution53 {
+
+    /**
+     * i 右端点
+     * j 要不要选 0 不能删除 1 必须删除
+     *  f[i][]
+     *
+     * @param nums
+     * @return
+     */
+//    public int maxSubArray(int[] nums) {
+//        int res = Integer.MIN_VALUE,n = nums.length;
+//        int[] dp = new int[n];
+//        //dp[i] 以下标i结尾的连续子数组最大和
+//        dp[0] = nums[0];
+//        res = Math.max(dp[0], res);
+//        for (int i = 1;i < n;++i) {
+//            dp[i] = dp[i-1] <= 0 ? nums[i] : dp[i-1] + nums[i];
+//            res = Math.max(res, dp[i]);
+//        }
+//        return res;
+//    }
+
+
+    /**
+     * 空间复杂度优化
+     * @param nums
+     * @return
+     */
     public int maxSubArray(int[] nums) {
-        int n = nums.length;
-        int pre = nums[0];
-        int max = pre;
-        for(int i = 1;i < n; ++i) {
-            pre = Math.max(pre + nums[i], nums[i]);
-            max = Math.max(pre, max);
+        int res = Integer.MIN_VALUE,n = nums.length;
+        int dp = nums[0];
+        res = Math.max(res, dp);
+        for (int i = 1;i < n;++i) {
+            dp = dp <= 0 ? nums[i] : dp + nums[i];
+            res = Math.max(res, dp);
         }
-        return max;
+        return res;
     }
+//    public int maxSubArray(int[] nums) {
+//        int n = nums.length;
+//        int pre = nums[0];
+//        int max = pre;
+//        for(int i = 1;i < n; ++i) {
+//            pre = Math.max(pre + nums[i], nums[i]);
+//            max = Math.max(pre, max);
+//        }
+//        return max;
+//    }
 }
 //leetcode submit region end(Prohibit modification and deletion)

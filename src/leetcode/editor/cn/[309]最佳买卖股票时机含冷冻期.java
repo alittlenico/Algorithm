@@ -35,27 +35,63 @@ package leetcode.editor.cn;//给定一个整数数组 prices，其中第 prices[
 // Related Topics 数组 动态规划 👍 1214 👎 0
 
 
+import java.util.Arrays;
+
 //leetcode submit region begin(Prohibit modification and deletion)
 class Solution309 {
+//    public int maxProfit(int[] prices) {
+//        int n = prices.length;
+//        int[][] f = new int[n][3];
+//        //f[i][0] 第i天结束后 持有股票的最大收益
+//        //f[i][1] 第i天结束后 不持有股票 且第二天为冻结期的最大收益
+//        //f[i][2] 第i天结束后 不持有股票 且第二天为非冻结期的最大收益
+//        f[0][0] = -1 * prices[0];
+//        //为什么设为0？
+//        f[0][1] = 0;
+//        f[0][2] = 0;
+//        for(int i = 1; i < n;++i) {
+//            //1.前一天持有股票，今天无操作 2.今天非冻结期，买入了股票，前一天不持有股票
+//            f[i][0] = Math.max(f[i-1][0], f[i-1][2] - prices[i]);
+//            //1.今天卖出了股票
+//            f[i][1] = f[i-1][0] + prices[i];
+//            //1.今天不持有股票 且未卖出
+//            f[i][2] = Math.max(f[i-1][1], f[i-1][2]);
+//        }
+//        return Math.max(f[n-1][1], f[n-1][2]);
+//    }
+
+
+        final static Integer INF = Integer.MIN_VALUE / 2;
+    int[] prices;
+    int[][] dp;
     public int maxProfit(int[] prices) {
         int n = prices.length;
-        int[][] f = new int[n][3];
-        //f[i][0] 第i天结束后 持有股票的最大收益
-        //f[i][1] 第i天结束后 不持有股票 且第二天为冻结期的最大收益
-        //f[i][2] 第i天结束后 不持有股票 且第二天为非冻结期的最大收益
-        f[0][0] = -1 * prices[0];
-        //为什么设为0？
-        f[0][1] = 0;
-        f[0][2] = 0;
-        for(int i = 1; i < n;++i) {
-            //1.前一天持有股票，今天无操作 2.今天非冻结期，买入了股票，前一天不持有股票
-            f[i][0] = Math.max(f[i-1][0], f[i-1][2] - prices[i]);
-            //1.今天卖出了股票
-            f[i][1] = f[i-1][0] + prices[i];
-            //1.今天不持有股票 且未卖出
-            f[i][2] = Math.max(f[i-1][1], f[i-1][2]);
+        this.prices = prices;
+        //dp[][0] 未持有 dp[][1] 持有
+        dp = new int[n][2];
+        for (int i = 0;i < n;++i) {
+            Arrays.fill(dp[i], INF);
         }
-        return Math.max(f[n-1][1], f[n-1][2]);
+        return dfs(n-1,0);
+    }
+
+    /**
+     * 第i天结束时 持有/不持有股票获得最大利润
+     * @param i
+     * @param hold
+     * @return
+     */
+    private int dfs(int i, int hold) {
+        if (i < 0) {
+            return hold == 1 ? INF : 0;
+        }
+        if (dp[i][hold] != INF) return dp[i][hold];
+        if (hold == 1) {
+            dp[i][hold] = Math.max(dfs(i-1, 1), dfs(i-2, 0) - prices[i]);
+            return dp[i][hold];
+        }
+        dp[i][hold] = Math.max(dfs(i-1,0),dfs(i-1,1) + prices[i]);
+        return dp[i][hold];
     }
 }
 //leetcode submit region end(Prohibit modification and deletion)
